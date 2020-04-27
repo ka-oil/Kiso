@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Servlet implementation class BusyoTourokuServlet
+ * Servlet implementation class SyainDeleteServlet
  */
-@WebServlet("/BusyoTourokuServlet")
-public class BusyoTourokuServlet extends HttpServlet {
+@WebServlet("/SyainDeleteServlet")
+public class SyainDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BusyoTourokuServlet() {
+	public SyainDeleteServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -49,8 +49,7 @@ public class BusyoTourokuServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		// アクセス元のHTMLでitemCdに設定された値を取得して、String型の変数itemCdに代入
-		String busyoId = request.getParameter("busyoId");
-		String busyoName = request.getParameter("busyoName");
+		String syainId = request.getParameter("syainId");
 
 		// JDBCドライバの準備
 		try {
@@ -65,9 +64,7 @@ public class BusyoTourokuServlet extends HttpServlet {
 		String user = "webapp";
 		String pass = "webapp";
 		// 実行するSQL文
-		String sql = "insert into SK_BUSYO \n" +
-				"(BUSYO_ID, BUSYO_NAME) \n" +
-				"values ('"+busyoId+"', '"+busyoName+"') \n";
+		String sql ="delete from SK_SYAIN \n" +  "where SYAIN_ID = '"+syainId+"' \n";
 
 		System.out.println(sql);
 
@@ -77,19 +74,15 @@ public class BusyoTourokuServlet extends HttpServlet {
 				// データベースへ接続します
 				Connection con = DriverManager.getConnection(url, user, pass);
 				// SQLの命令文を実行するための準備をおこないます
-				Statement stmt = con.createStatement();
-				) {
-				// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
-				int resultCount = stmt.executeUpdate(sql);
+				Statement stmt = con.createStatement();) {
+			// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
+			int resultCount = stmt.executeUpdate(sql);
 			// SQL実行後の処理内容
-
-
 
 			// アクセスした人に応答するためのJSONを用意する
 			PrintWriter pw = response.getWriter();
 			// JSONで出力する
 			pw.append(new ObjectMapper().writeValueAsString("ok"));
-
 
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細:[%s]", e.getMessage()), e);

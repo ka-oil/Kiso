@@ -28,10 +28,13 @@ function executeAjax() {
 			var tableElemnt = '';
 			for (var i = 0; i < json.length; i++) {
 				var busyo = json[i];
+
 				tableElemnt += '<tr> <td>' + busyo.busyoId + '</td><td>'
 						+ busyo.busyoName + '</td>'
-						+ '<td><button id=' + busyo.busyoId + '>編集</button></td>'
-						+ '<td><button id=' + busyo.busyoId + '>削除</button></td><tr>';
+						+ '<td><input type="button" value="編集" onclick="http://localhost:8080/syainDataApp/Busyo_Hensyu.html"></td>'
+						+ '<td><button class="busyo-sakuzyo" value = ' + busyo.busyoId + '>削除</button></td></tr>'
+				//		+ '<td></td></tr>';
+
 			}
 			// HTMLに挿入
 			$('#busyo').append(tableElemnt);
@@ -46,8 +49,8 @@ function executeAjax() {
 }
 
 
-//location.href = "http://localhost:8080/syainDataApp/Busyo_Touroku.html";
-//編集ボタンを押すと、入力したデータが取得される
+// location.href = "http://localhost:8080/syainDataApp/Busyo_Touroku.html";
+// 編集ボタンを押すと、入力したデータが取得される
 
 var edit = function(){
 	var inputBusyoId = $('#js-edit-busyoId').val();
@@ -68,7 +71,7 @@ var edit = function(){
 			// サーバーとの通信に成功した時の処理
 			// 確認のために返却値を出力
 			console.log('編集後' + data);
-			//アラートを出す
+			// アラートを出す
 			alert('変更を保存しました');
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -76,17 +79,14 @@ var edit = function(){
 			alert('データの通信に失敗しました');
 		}
 	});
-
-
 }
 
 // 削除ボタンを押すと、レコードが削除されるファンクション(POST)
 var busyoDelete = function() {
-	var q = $('#busyo.busyoId').val();
-	// 入力された商品コード
-	console.log(q);
+	var inputBusyoId = $('#busyo-sakuzyo').val();
+
 	var requestQuery = {
-			busyoId : q
+			busyoId : inputBusyoId,
 		}
 		console.log('入力値', requestQuery);
 
@@ -99,7 +99,7 @@ var busyoDelete = function() {
 			// サーバーとの通信に成功した時の処理
 			// 確認のために返却値を出力
 			console.log( data+'を削除しました');
-			//アラートを出す
+			// アラートを出す
 			alert('削除しました');
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -128,7 +128,7 @@ var tuika = function(){
 			// サーバーとの通信に成功した時の処理
 			// 確認のために返却値を出力
 			console.log( data+'を登録しました');
-			//アラートを出す
+			// アラートを出す
 			alert('新規登録を行いました');
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -148,12 +148,14 @@ $(document).ready(function() {
 	$('#searchBtn').bind('click', executeAjax);
 
 	// 削除ボタンを押したときのイベント
-	$('#button_sakuzyo').click(busyoDelete);
+	$('#busyo-sakuzyo').click(function(){
+		$(this).class(busyoDelete);
+});
 
 	// 編集ボタンを押したときのイベント
 	$('#button_hensyu').click(edit);
 
-	//新規追加ボタンを押したときのイベント
+	// 新規追加ボタンを押したときのイベント
 	$('#tuika_button').click(tuika);
 
 });

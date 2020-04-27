@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Servlet implementation class BusyoTourokuServlet
+ * Servlet implementation class DeleteServlet
  */
-@WebServlet("/BusyoTourokuServlet")
-public class BusyoTourokuServlet extends HttpServlet {
+@WebServlet("/DeleteServlet")
+public class BusyoDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BusyoTourokuServlet() {
+	public BusyoDeleteServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -50,7 +50,6 @@ public class BusyoTourokuServlet extends HttpServlet {
 
 		// アクセス元のHTMLでitemCdに設定された値を取得して、String型の変数itemCdに代入
 		String busyoId = request.getParameter("busyoId");
-		String busyoName = request.getParameter("busyoName");
 
 		// JDBCドライバの準備
 		try {
@@ -65,9 +64,8 @@ public class BusyoTourokuServlet extends HttpServlet {
 		String user = "webapp";
 		String pass = "webapp";
 		// 実行するSQL文
-		String sql = "insert into SK_BUSYO \n" +
-				"(BUSYO_ID, BUSYO_NAME) \n" +
-				"values ('"+busyoId+"', '"+busyoName+"') \n";
+		String sql = "delete from SK_BUSYO \n" +
+				"where BUSYO_ID = '"+busyoId+"' \n";
 
 		System.out.println(sql);
 
