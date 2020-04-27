@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="jquery-1.10.2.js"></script>
+<script type="text/javascript" src="buyso.js"></script>
+<title>社員データベース管理ページ</title>
+</head>
+<body>
+	<div>
+		<header>
+			<h1>部署一覧</h1>
+		</header>
+	</div>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>部署名</th>
+				</tr>
+			</thead>
+			<tbody id="busyo">
+			</tbody>
+		</table>
+		<!-- 			<td><button id="button_hensyu">編集</button></td>X
+				<td><button id="button_sakuzyo">削除</button></td>
+ -->
+
+	</div>
+
+	<!-- 新規登録 -->
+	<div class="bisyo-touroku">
+		<table>
+			<tr>
+				<th>部署ID</th>
+				<td><input type="text" placeholder="部署ID " id="js-input-busyoId"></input></td>
+			</tr>
+			<tr>
+				<th>部署名</th>
+				<td><input type="text" placeholder="部署名" id="js-input-busyoName"></input></td>
+			</tr>
+		</table>
+		<button id="tuika_button">新規登録</button>
+	</div>
+
+
+</body>
+</html>

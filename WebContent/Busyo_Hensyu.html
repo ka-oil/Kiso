@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- CSSの読み込み -->
+<link rel="stylesheet" href="./itemRegist.css" type="text/css">
+<!-- JavaScriptの読み込み -->
+<script type="text/javascript" src="jquery-1.10.2.js"></script>
+<script type="text/javascript" src="buyso.js"></script>
+<title>社員データベース管理ページ</title>
+</head>
+<body>
+	<!-- ヘッダー -->
+	<div class="header">
+		<h1>部署 新規登録</h1>
+	</div>
+
+	<!-- メインコンテンツ -->
+	<div class="content">
+		<!-- ページナビゲーション -->
+		<div class="nav">
+			<h2>新規登録</h2>
+		</div>
+		<!-- 部署情報 -->
+		<div class="bisyo-add">
+			<table>
+				<tr>
+					<th>部署ID</th>
+					<td><input type="text" placeholder="部署ID "
+						id="js-input-busyoId"></input></td>
+				</tr>
+				<tr>
+					<th>部署名</th>
+					<td><input type="text" placeholder="部署名"
+						id="js-input-busyoName"></input></td>
+				</tr>
+			</table>
+			<button id="js-add-button">新規登録</button>
+		</div>
+		<!-- ページナビゲーション -->
+<!-- 		<div class="nav">
+			<h2>編集</h2>
+		</div> -->
+		<!-- 部署情報 -->
+ <!--		<div class="bisyo-add">
+			<table>
+				<tr>
+					<th>部署ID</th>
+					<td><input type="text" placeholder="変更後部署ID "
+						id="js-edit-busyoId"></input></td>
+				</tr>
+				<tr>
+					<th>部署名</th>
+					<td><input type="text" placeholder="変更後部署名"
+						id="js-edit-busyoName"></input></td>
+				</tr>
+			</table>
+			<button id="js-add-button">編集</button>
+		</div>
+ -->	</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="jquery-1.10.2.js"></script>
+<script type="text/javascript" src="syain.js"></script>
+<title>社員データベース管理ページ</title>
+</head>
+<body>
+	<div>
+		<header>
+			<h1>社員一覧</h1>
+		</header>
+	</div>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>社員ID</th>
+					<th>名前</th>
+				</tr>
+			</thead>
+			<tbody id="syain">
+			</tbody>
+		</table>
+		<!-- 			<td><button id="button_hensyu">編集</button></td>
+				<td><button id="button_sakuzyo">削除</button></td>
+ -->
+
+	</div>
+	<div>
+		<button id="tuika_button">新規追加</button>
+	</div>
+	<div>
+		<input type="text" placeholder="検索" value="0001" id="kensaku_input"></input>
+		<button id="kensaku_button">検索</button>
+	</div>
+
+</body>
+</html>
