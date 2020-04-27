@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.servlet.ServletException;
@@ -12,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Servlet implementation class BusyoTourokuServlet
@@ -51,6 +52,8 @@ public class BusyoTourokuServlet extends HttpServlet {
 		String busyoId = request.getParameter("busyoId");
 		String busyoName = request.getParameter("busyoName");
 
+
+
 		// JDBCドライバの準備
 		try {
 			// JDBCドライバのロード
@@ -66,8 +69,9 @@ public class BusyoTourokuServlet extends HttpServlet {
 		// 実行するSQL文
 		String sql = "insert into SK_BUSYO \n" +
 				"(BUSYO_ID, BUSYO_NAME) \n" +
-				"values ('"+busyoId+"', '"+busyoName+"'); \n" +
-				"commit; \n";
+				"values ('"+busyoId+"', '"+busyoName+"') \n";
+
+		System.out.println(sql);
 
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
 		// この場合はDBサーバへの接続に失敗する可能性があります
@@ -76,13 +80,17 @@ public class BusyoTourokuServlet extends HttpServlet {
 				Connection con = DriverManager.getConnection(url, user, pass);
 				// SQLの命令文を実行するための準備をおこないます
 				Statement stmt = con.createStatement();
+				) {
 				// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
-				ResultSet rs1 = stmt.executeQuery(sql);) {
+				int resultCount = stmt.executeUpdate(sql);
 			// SQL実行後の処理内容
+
 
 
 			// アクセスした人に応答するためのJSONを用意する
 			PrintWriter pw = response.getWriter();
+			// JSONで出力する
+			pw.append(new ObjectMapper().writeValueAsString("ok"));
 
 
 		} catch (Exception e) {

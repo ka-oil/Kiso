@@ -30,8 +30,8 @@ function executeAjax() {
 				var busyo = json[i];
 				tableElemnt += '<tr> <td>' + busyo.busyoId + '</td><td>'
 						+ busyo.busyoName + '</td>'
-						+ '<td><button id="button_hensyu" value="'+ busyo.busyoId + '">編集</button></td>'
-						+ '<td><button id="button_sakuzyo" value="'+ busyo.busyoId + '">削除</button></td><tr>';
+						+ '<td><button id=' + busyo.busyoId + '>編集</button></td>'
+						+ '<td><button id=' + busyo.busyoId + '>削除</button></td><tr>';
 			}
 			// HTMLに挿入
 			$('#busyo').append(tableElemnt);
@@ -82,17 +82,17 @@ var edit = function(){
 
 // 削除ボタンを押すと、レコードが削除されるファンクション(POST)
 var busyoDelete = function() {
-	var q = $('#button_sakuzyo').val();
+	var q = $('#busyo.busyoId').val();
 	// 入力された商品コード
 	console.log(q);
-
 	var requestQuery = {
-		busyoId : q
-	}
-	// サーバーのレコードを削除
+			busyoId : q
+		}
+		console.log('入力値', requestQuery);
+
 	$.ajax({
 		type : 'POST',
-		url : '/syainDataApp/BusyoServlet',
+		url : '/DeleteServlet',
 		dataType : 'json',
 		data : requestQuery,
 		success : function(data) {
@@ -107,22 +107,21 @@ var busyoDelete = function() {
 			alert('データの通信に失敗しました');
 		}
 	});
-
 }
 
 // tuika_buttonを押すと、情報を取得し、DBに登録
-var tuoroku = function(){
+var tuika = function(){
 	var inputBusyoId = $('#js-input-busyoId').val();
 	var inputBusyoName = $('#js-input-busyoName').val();
 	var requestQuery = {
-			busyoId: "inputBusyoId",
-			busyoName: "inputBusyoName",
+			busyoId: inputBusyoId,
+			busyoName: inputBusyoName,
 		}
 		console.log('入力値', requestQuery);
 
 	$.ajax({
 		type : 'POST',
-		url : 'syainDataApp/BusyoTourokuServlet',
+		url : 'BusyoTourokuServlet',
 		dataType : 'json',
 		data : requestQuery,
 		success : function(data) {
@@ -154,8 +153,7 @@ $(document).ready(function() {
 	// 編集ボタンを押したときのイベント
 	$('#button_hensyu').click(edit);
 
-	 //⁺コメント
 	//新規追加ボタンを押したときのイベント
-	$('#tuika_button').click(move);
+	$('#tuika_button').click(tuika);
 
 });
