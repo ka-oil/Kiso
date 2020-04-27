@@ -154,6 +154,7 @@ $(document).ready(function() {
 	// 編集ボタンを押したときのイベント
 	$('#button_hensyu').click(edit);
 
+	 //⁺コメント
 	//新規追加ボタンを押したときのイベント
 	$('#tuika_button').click(move);
 
