@@ -48,12 +48,12 @@ public class SyainTourokuServlet extends HttpServlet {
 					response.setContentType("text/html; charset=UTF-8");
 
 					// アクセス元のHTMLでitemCdに設定された値を取得して、String型の変数itemCdに代入
-					String addId = request.getParameter("addId");
-					String addName = request.getParameter("addName");
-					String addAge = request.getParameter("addAge");
-					String addSeibetu = request.getParameter("addSeibetu");
-					String addZyusyo = request.getParameter("addZyusyo");
-					String addSyozoku = request.getParameter("addSyozoku");
+					String syainId = request.getParameter("syainId");
+					String syainName = request.getParameter("syainName");
+					String syainAge = request.getParameter("syainAge");
+					String syainSeibetu = request.getParameter("syainSeibetu");
+					String syainZyusyo = request.getParameter("syainZyusyo");
+					String syainSyozoku = request.getParameter("syainSyozoku");
 
 		// JDBCドライバの準備
 		try {
@@ -69,10 +69,9 @@ public class SyainTourokuServlet extends HttpServlet {
 		String pass = "webapp";
 		// 実行するSQL文
 					String sql ="insert into SK_SYAIN \n" +
-							"(SYAIN_ID,SYAIN_NAME,SYAIN_AGE,SYAIN_SEIBETU,SYAIN_ZYUSYO,BUSYO_ID) \n" +
-							"values  \n" +
-							"('"+addId+"','"+addName+"','"+addAge+"','"+addSeibetu+"','"+addZyusyo+"','"+addSyozoku+"'); \n" +
-							" commit;" ;
+							"(SYAIN_ID, SYAIN_NAME, SYAIN_AGE, SYAIN_SEIBETU, SYAIN_ZYUSYO, BUSYO_ID) \n" +
+							"values ('"+syainId+"', '"+syainName+"', '"+syainAge+"', '"+syainSeibetu+"', '"+syainZyusyo+"', '"+syainSyozoku+"') \n";
+
 
 		System.out.println(sql);
 

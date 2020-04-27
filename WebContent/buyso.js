@@ -31,10 +31,10 @@ function executeAjax() {
 
 				tableElemnt += '<tr> <td>' + busyo.busyoId + '</td><td>'
 						+ busyo.busyoName + '</td>'
-						+ '<td><input type="button" value="編集" onclick="http://localhost:8080/syainDataApp/Busyo_Hensyu.html"></td>'
-						+ '<td><button class="busyo-sakuzyo" value = ' + busyo.busyoId + '>削除</button></td></tr>'
-				//		+ '<td></td></tr>';
-
+					//	+ '<td><input type="button" onclick="location.href='Busyo_Hensyu.html'" value="編集"></td>'
+						+ '<td><button class="busyo-sakuzyo" value = "' + busyo.busyoId + '">削除</button></td></tr>'
+//						+ '<td><input type="button" placehokder="削除" value=' + busyo.busyoId + ' onclick="busyoDelete(this)"></td></tr>';
+//						$('#hobby_link').attr('href', 'Busyo_Hensyu.html?q=' + busyo.busyoId);
 			}
 			// HTMLに挿入
 			$('#busyo').append(tableElemnt);
@@ -83,7 +83,7 @@ var edit = function(){
 
 // 削除ボタンを押すと、レコードが削除されるファンクション(POST)
 var busyoDelete = function() {
-	var inputBusyoId = $('#busyo-sakuzyo').val();
+	var inputBusyoId = $('.busyo-sakuzyo').val();
 
 	var requestQuery = {
 			busyoId : inputBusyoId,
@@ -104,7 +104,7 @@ var busyoDelete = function() {
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
-			alert('データの通信に失敗しました');
+			alert('削除できませんでした');
 		}
 	});
 }
@@ -133,7 +133,7 @@ var tuika = function(){
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
-			alert('データの通信に失敗しました');
+			alert('登録できませんでした');
 		}
 	});
 }
@@ -148,8 +148,12 @@ $(document).ready(function() {
 	$('#searchBtn').bind('click', executeAjax);
 
 	// 削除ボタンを押したときのイベント
-	$('#busyo-sakuzyo').click(function(){
+	$('.busyo-sakuzyo').click(function(){
 		$(this).class(busyoDelete);
+//
+//		$(".busyo-sakuzyo").click(function(){
+//			    $(this).addClass("delete");
+//			});
 });
 
 	// 編集ボタンを押したときのイベント
