@@ -69,7 +69,7 @@ public class SyainEditServlet extends HttpServlet {
 
 		// 実行するSQL文
 		String sql = "update SK_SYAIN \n" +
-				"set SYAIN_ID = '"+syainId+"', SYAIN_NAME = '"+syainName+"', SYAIN_AGE = '"+syainAge+"', \n" +
+				"set SYAIN_NAME = '"+syainName+"', SYAIN_AGE = '"+syainAge+"', \n" +
 				"SYAIN_SEIBETU = '"+syainSeibetu+"', SYAIN_ZYUSYO = '"+syainZyusyo+"', BUSYO_ID = '"+syainSyozoku+"' \n" +
 				"where SYAIN_ID = '"+syainId+"' \n";
 

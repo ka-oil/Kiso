@@ -2,7 +2,7 @@
 var syainEdit = function(parameter) {
 	var inputSyainId = parameter;
 	// console.log(parameter);
-	var inputSyainName = $('#js-input-busyoName').val();
+	var inputSyainName = $('#js-input-syainName').val();
 	var inputSyainAge = $('#js-input-syainAge').val();
 	var inputSyainSeibetu = $('#js-input-syainSeibetu').val();
 	var inputSyainZyusyo = $('#js-input-syainZyusyo').val();

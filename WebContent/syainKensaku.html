@@ -1,10 +1,42 @@
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<script type="text/javascript" src="jquery-1.10.2.js"></script>
+<script type="text/javascript" src="syainKensaku.js"></script>
+<title>社員データベース検索ページ</title>
 </head>
 <body>
+	<div>
+		<header>
+			<h1>条件を指定して社員情報を検索します</h1>
+		</header>
+	</div>
+<body>
+	<div class="syain-kensaku">
+		<table>
+			<tr>
+				<th>所属部署:</th>
+				<form name="form1">
+					<select name="所属部署" id="kensakuBusyo">
+						<option value="red">赤</option>
+						<option value="yellow">黄</option>
+						<option value="blue">青</option>
+					</select>
+				</form>
+				</td>
+			</tr>
+			<tr>
+				<th>社員ID:</th>
+				<td><input type="text" placeholder="社員ID "
+					id="js-input-syainId"></td>
+			</tr>
+			<tr>
+				<th>名前に含む文字:</th>
+				<td><input type="text" placeholder="名前" id="js-input-syainName"></td>
+			</tr>
+		</table>
+	</div>
+	<input type="button" value="検索" onclick="'">
 
 </body>
 </html>
