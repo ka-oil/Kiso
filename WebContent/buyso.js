@@ -31,9 +31,10 @@ function executeAjax() {
 
 				tableElemnt += '<tr> <td>' + busyo.busyoId + '</td><td>'
 						+ busyo.busyoName + '</td>'
-					//	+ '<td><input type="button" onclick="location.href='Busyo_Hensyu.html'" value="編集"></td>'
-						+ '<td><button class="busyo-sakuzyo" value = "' + busyo.busyoId + '">削除</button></td></tr>'
-//						+ '<td><input type="button" placehokder="削除" value=' + busyo.busyoId + ' onclick="busyoDelete(this)"></td></tr>';
+						+ '<td><button class="busyo-hensyu" value = "' + busyo.busyoId + '">編集</button></td>'
+//						+ '<td><input type="button" onclick="location.href=''" value="編集"></td>'
+//						+ '<td><button class="busyo-sakuzyo" value = "' + busyo.busyoId + '">削除</button></td></tr>'
+						+ '<td><input type="button" id="'+ busyo.busyoId +'" value="削除" onclick="busyoSakuzyo()"></td></tr>';
 //						$('#hobby_link').attr('href', 'Busyo_Hensyu.html?q=' + busyo.busyoId);
 			}
 			// HTMLに挿入
@@ -82,8 +83,10 @@ var edit = function(){
 }
 
 // 削除ボタンを押すと、レコードが削除されるファンクション(POST)
-var busyoDelete = function() {
-	var inputBusyoId = $('.busyo-sakuzyo').val();
+var busyoSakuzyo = function() {
+	var inputBusyoId = $(this).attr('id');
+
+	console.log(inputBusyoId);
 
 	var requestQuery = {
 			busyoId : inputBusyoId,
@@ -92,13 +95,13 @@ var busyoDelete = function() {
 
 	$.ajax({
 		type : 'POST',
-		url : '/DeleteServlet',
+		url : '/syainDataApp/DeleteServlet',
 		dataType : 'json',
 		data : requestQuery,
 		success : function(data) {
 			// サーバーとの通信に成功した時の処理
 			// 確認のために返却値を出力
-			console.log( data+'を削除しました');
+			console.log(data);
 			// アラートを出す
 			alert('削除しました');
 		},
@@ -147,14 +150,14 @@ $(document).ready(function() {
 	// 更新ボタンにイベント設定
 	$('#searchBtn').bind('click', executeAjax);
 
-	// 削除ボタンを押したときのイベント
-	$('.busyo-sakuzyo').click(function(){
-		$(this).class(busyoDelete);
+//	// 削除ボタンを押したときのイベント
+//	$('.busyo-sakuzyo').click(function(){
+//		$(this).busyoSakuzyo();
 //
 //		$(".busyo-sakuzyo").click(function(){
 //			    $(this).addClass("delete");
 //			});
-});
+//});
 
 	// 編集ボタンを押したときのイベント
 	$('#button_hensyu').click(edit);
