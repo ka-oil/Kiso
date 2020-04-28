@@ -31,11 +31,10 @@ function executeAjax() {
 
 				tableElemnt += '<tr> <td>' + busyo.busyoId + '</td><td>'
 						+ busyo.busyoName + '</td>'
-						+ '<td><button class="busyo-hensyu" value = "' + busyo.busyoId + '">編集</button></td>'
-//						+ '<td><input type="button" onclick="location.href=''" value="編集"></td>'
-//						+ '<td><button class="busyo-sakuzyo" value = "' + busyo.busyoId + '">削除</button></td></tr>'
-						+ '<td><input type="button" id="'+ busyo.busyoId +'" value="削除" onclick="busyoSakuzyo()"></td></tr>';
-//						$('#hobby_link').attr('href', 'Busyo_Hensyu.html?q=' + busyo.busyoId);
+						//+ '<td><button class="busyo-hensyu" value = "' + busyo.busyoId + '">編集</button></td>'
+						+ '<td><input type="button" id="'+ busyo.busyoId +'" value="編集" onclick="busyoEdit(this.id)"></td>'
+						//+ '<td><input type="button" onclick="location.href=''" value="編集"></td>'
+						+ '<td><input type="button" id="'+ busyo.busyoId +'" value="削除" onclick="busyoSakuzyo(this.id)"></td></tr>';
 			}
 			// HTMLに挿入
 			$('#busyo').append(tableElemnt);
@@ -53,13 +52,11 @@ function executeAjax() {
 // location.href = "http://localhost:8080/syainDataApp/Busyo_Touroku.html";
 // 編集ボタンを押すと、入力したデータが取得される
 
-var edit = function(){
-	var inputBusyoId = $('#js-edit-busyoId').val();
-	var inputBusyoName = $('#js-edit-busyoName').val();
+var busyoEdit = function(id){
+	var inputBusyoId = id
 
 	var requestQuery = {
-		busyoId: "inputBusyoId",
-		busyoName: "inputBusyoName",
+		busyoId: "inputBusyoId"
 	}
 	console.log('入力値', requestQuery);
 	// サーバーのレコードを削除
@@ -83,10 +80,10 @@ var edit = function(){
 }
 
 // 削除ボタンを押すと、レコードが削除されるファンクション(POST)
-var busyoSakuzyo = function() {
-	var inputBusyoId = $(this).attr('id');
+var busyoSakuzyo = function(id) {
+	var inputBusyoId = id;
 
-	console.log(inputBusyoId);
+	console.log(id);
 
 	var requestQuery = {
 			busyoId : inputBusyoId,
@@ -104,12 +101,14 @@ var busyoSakuzyo = function() {
 			console.log(data);
 			// アラートを出す
 			alert('削除しました');
+			doReload();
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
 			alert('削除できませんでした');
 		}
 	});
+
 }
 
 // tuika_buttonを押すと、情報を取得し、DBに登録
@@ -133,12 +132,19 @@ var tuika = function(){
 			console.log( data+'を登録しました');
 			// アラートを出す
 			alert('新規登録を行いました');
+			doReload();
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
 			alert('登録できませんでした');
 		}
 	});
+}
+
+//画面リロードするメソッド
+function doReload() {
+    // reloadメソッドによりページをリロード
+    window.location.reload();
 }
 
 $(document).ready(function() {

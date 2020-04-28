@@ -12,17 +12,14 @@
 <body>
 	<!-- ヘッダー -->
 	<div class="header">
-		<h1>部署 編集</h1>
+		<h1>部署 追加・編集</h1>
 	</div>
 
 	<!-- メインコンテンツ -->
 	<div class="content">
 		<!-- ページナビゲーション -->
 		<div class="nav">
-			<h2>編集</h2>
-		</div>
-		<!-- 部署情報 -->
-		<div class="bisyo-add">
+			<h2 id="busyoHensyu"></h2>
 			<table>
 				<tr>
 					<th>部署ID</th>
@@ -35,7 +32,23 @@
 						id="js-input-busyoName"></input></td>
 				</tr>
 			</table>
-			<button id="js-add-button">編集</button>
+			<button id="js-hensyu-button">編集</button>
+		</div>
+		<!-- 部署情報 -->
+		<div class="bisyoTouroku">
+			<table>
+				<tr>
+					<th>部署ID</th>
+					<td><input type="text" placeholder="新規登録 部署ID "
+						id="js-input-busyoId"></input></td>
+				</tr>
+				<tr>
+					<th>部署名</th>
+					<td><input type="text" placeholder="新規登録 部署名"
+						id="js-input-busyoName"></input></td>
+				</tr>
+			</table>
+			<button id="js-touroku-button">新規登録</button>
 		</div>
 		<!-- ページナビゲーション -->
 <!-- 		<div class="nav">

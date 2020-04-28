@@ -1,0 +1,3 @@
+select BUSYO_ID,BUSYO_NAME
+from SK_BUSYO
+where BUSYO_ID = 'D03'
