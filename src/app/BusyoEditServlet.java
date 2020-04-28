@@ -74,10 +74,9 @@ public class BusyoEditServlet extends HttpServlet {
 			// rs.nextは取得した商品情報表に次の行があるとき(取得結果があるとき)、trueになり、if文の中が実行される
 			// 次の行がないときはfalseになり、実行されない
 
-			while(rs1.next()) {
 				busyo.setBusyoId(rs1.getString("BUSYO_ID")); // syain型の変数syainに商品コードをセット
 				busyo.setBusyoName(rs1.getString("BUSYO_NAME"));// syain型の変数syainに商品名をセット
-			}
+
 
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細:[%s]", e.getMessage()), e);
@@ -145,6 +144,5 @@ public class BusyoEditServlet extends HttpServlet {
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細:[%s]", e.getMessage()), e);
 		}
-
 	}
 }

@@ -3,43 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <!-- CSSの読み込み -->
-<link rel="stylesheet" href="./itemRegist.css" type="text/css">
+
 <!-- JavaScriptの読み込み -->
 <script type="text/javascript" src="jquery-1.10.2.js"></script>
+<script type="text/javascript" src="Busyo_Hensyu.js"></script>
 <script type="text/javascript" src="buyso.js"></script>
 <title>社員データベース管理ページ</title>
 </head>
 <body>
 	<!-- ヘッダー -->
 	<div class="header">
-		<h1>部署 追加・編集</h1>
+		<h1>部署 編集</h1>
 	</div>
 
 	<!-- メインコンテンツ -->
 	<div class="content">
-		<!-- ページナビゲーション -->
-		<div class="nav">
-			<h2 id="busyoHensyu"></h2>
+		<!-- 編集テーブル -->
+		<div class="busyoHensyu">
+			<h2>編集</h2>
 			<table>
-				<tr>
-					<th>部署ID</th>
-					<td><input type="text" placeholder="変更後部署ID "
-						id="js-input-busyoId"></input></td>
-				</tr>
-				<tr>
-					<th>部署名</th>
-					<td><input type="text" placeholder="変更後部署名"
-						id="js-input-busyoName"></input></td>
-				</tr>
+				<thead>
+					<tr>
+						<th>ID:</th>
+						<th id="hensyuBusyoId"></th>
+					</tr>
+				</thead>
+				<tbody id="busyoHensyu">
+					<tr>
+						<td><input type="text" placeholder="変更後部署名"
+							id="js-input-busyoName"></td>
+					</tr>
+				</tbody>
 			</table>
 			<button id="js-hensyu-button">編集</button>
+
+
+
 		</div>
 		<!-- 部署情報 -->
-		<div class="bisyoTouroku">
+		<!-- 		<div class="bisyoTouroku">
+		<h2 id="busyoTouroku">新規登録</h2>
 			<table>
 				<tr>
 					<th>部署ID</th>
-					<td><input type="text" placeholder="新規登録 部署ID "
+					<td><input type="text" placeholder="新規登録 部署ID"
 						id="js-input-busyoId"></input></td>
 				</tr>
 				<tr>
@@ -49,13 +56,13 @@
 				</tr>
 			</table>
 			<button id="js-touroku-button">新規登録</button>
-		</div>
+		</div> -->
 		<!-- ページナビゲーション -->
-<!-- 		<div class="nav">
+		<!-- 		<div class="nav">
 			<h2>編集</h2>
 		</div> -->
 		<!-- 部署情報 -->
- <!--		<div class="bisyo-add">
+		<!--		<div class="bisyo-add">
 			<table>
 				<tr>
 					<th>部署ID</th>
@@ -70,6 +77,7 @@
 			</table>
 			<button id="js-add-button">編集</button>
 		</div>
- -->	</div>
+ -->
+	</div>
 </body>
 </html>

@@ -32,8 +32,7 @@ function executeAjax() {
 				tableElemnt += '<tr> <td>' + busyo.busyoId + '</td><td>'
 						+ busyo.busyoName + '</td>'
 						//+ '<td><button class="busyo-hensyu" value = "' + busyo.busyoId + '">編集</button></td>'
-						+ '<td><input type="button" id="'+ busyo.busyoId +'" value="編集" onclick="busyoEdit(this.id)"></td>'
-						//+ '<td><input type="button" onclick="location.href=''" value="編集"></td>'
+						+ '<td><input type="button" id="'+ busyo.busyoId +'" value="編集" onclick="location.href=\'./Busyo_Hensyu.html?busyoId='+ busyo.busyoId +'\'"></td>'
 						+ '<td><input type="button" id="'+ busyo.busyoId +'" value="削除" onclick="busyoSakuzyo(this.id)"></td></tr>';
 			}
 			// HTMLに挿入
@@ -52,32 +51,12 @@ function executeAjax() {
 // location.href = "http://localhost:8080/syainDataApp/Busyo_Touroku.html";
 // 編集ボタンを押すと、入力したデータが取得される
 
-var busyoEdit = function(id){
-	var inputBusyoId = id
 
-	var requestQuery = {
-		busyoId: "inputBusyoId"
-	}
-	console.log('入力値', requestQuery);
-	// サーバーのレコードを削除
-	$.ajax({
-		type : 'POST',
-		url : '/syainDataApp/EditServlet',
-		dataType : 'json',
-		data : requestQuery,
-		success : function(data) {
-			// サーバーとの通信に成功した時の処理
-			// 確認のために返却値を出力
-			console.log('編集後' + data);
-			// アラートを出す
-			alert('変更を保存しました');
-		},
-		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			// サーバーとの通信に失敗した時の処理
-			alert('データの通信に失敗しました');
-		}
-	});
-}
+
+
+
+
+
 
 // 削除ボタンを押すと、レコードが削除されるファンクション(POST)
 var busyoSakuzyo = function(id) {
@@ -147,6 +126,8 @@ function doReload() {
     window.location.reload();
 }
 
+
+
 $(document).ready(function() {
 	'use strict';
 
@@ -164,11 +145,9 @@ $(document).ready(function() {
 //			    $(this).addClass("delete");
 //			});
 //});
-
 	// 編集ボタンを押したときのイベント
-	$('#button_hensyu').click(edit);
+	$('#js-hensyu-button').click(busyoEdit);
 
 	// 新規追加ボタンを押したときのイベント
 	$('#tuika_button').click(tuika);
-
 });
