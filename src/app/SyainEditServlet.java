@@ -45,16 +45,14 @@ public class SyainEditServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 文字化け処理
 		response.setContentType("text/html; charset=UTF-8");
 
-		// アクセス元のHTMLでitemCdに設定された値を取得して、String型の変数itemCdに代入
-		String addId = request.getParameter("addId");
-		String addName = request.getParameter("addName");
-		String addAge = request.getParameter("addAge");
-		String addSeibetu = request.getParameter("addSeibetu");
-		String addZyusyo = request.getParameter("addZyusyo");
-		String addSyozoku = request.getParameter("addSyozoku");
+		String syainId = request.getParameter("syainId");
+		String syainName = request.getParameter("syainName");
+		String syainAge = request.getParameter("syainAge");
+		String syainSeibetu = request.getParameter("syainSeibetu");
+		String syainZyusyo = request.getParameter("syainZyusyo");
+		String syainSyozoku = request.getParameter("syainSyozoku");
 
 		// JDBCドライバの準備
 		try {
@@ -68,33 +66,39 @@ public class SyainEditServlet extends HttpServlet {
 		String url = "jdbc:oracle:thin:@localhost:1521:XE";
 		String user = "webapp";
 		String pass = "webapp";
+
 		// 実行するSQL文
-		String sql = "insert into SK_SYAIN \n"
-				+ "(SYAIN_ID,SYAIN_NAME,SYAIN_AGE,SYAIN_SEIBETU,SYAIN_ZYUSYO,BUSYO_ID) \n" + "values  \n" + "('" + addId
-				+ "','" + addName + "','" + addAge + "','" + addSeibetu + "','" + addZyusyo + "','" + addSyozoku
-				+ "'); \n" + " commit;";
+		String sql = "update SK_SYAIN \n" +
+				"set SYAIN_ID = '"+syainId+"', SYAIN_NAME = '"+syainName+"', SYAIN_AGE = '"+syainAge+"', \n" +
+				"SYAIN_SEIBETU = '"+syainSeibetu+"', SYAIN_ZYUSYO = '"+syainZyusyo+"', BUSYO_ID = '"+syainSyozoku+"' \n" +
+				"where SYAIN_ID = '"+syainId+"' \n";
 
 		System.out.println(sql);
 
+		// エラーが発生するかもしれない処理はtry-catchで囲みます
+		// この場合はDBサーバへの接続に失敗する可能性があります
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
 		// この場合はDBサーバへの接続に失敗する可能性があります
 		try (
 				// データベースへ接続します
 				Connection con = DriverManager.getConnection(url, user, pass);
 				// SQLの命令文を実行するための準備をおこないます
-				Statement stmt = con.createStatement();) {
-			// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
-			int resultCount = stmt.executeUpdate(sql);
+				Statement stmt = con.createStatement();
+				) {
+				// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
+				int resultCount = stmt.executeUpdate(sql);
 			// SQL実行後の処理内容
+
+
 
 			// アクセスした人に応答するためのJSONを用意する
 			PrintWriter pw = response.getWriter();
 			// JSONで出力する
 			pw.append(new ObjectMapper().writeValueAsString("ok"));
 
+
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細:[%s]", e.getMessage()), e);
 		}
-
 	}
 }

@@ -42,8 +42,7 @@ function executeAjax() {
 								+ '</td><td>'
 								+ syain.syainName
 								+ '</td>'
-								+ '<td><button id="button_hensyu">編集</button></td>'
-								//+ '<td><button id="button_sakuzyo">削除</button></td><tr>';
+								+ '<td><input type="button" id="'+ syain.syainId +'" value="編集" onclick="location.href=\'./syainHensyu.html?syainId='+ syain.syainId +'\'"></td>'
 								+ '<td><input type="button" id="'+ syain.syainId +'" value="削除" onclick="syainSakuzyo(this.id)"></td></tr>';
 					}
 					// HTMLに挿入

@@ -48,16 +48,6 @@ function executeAjax() {
 }
 
 
-// location.href = "http://localhost:8080/syainDataApp/Busyo_Touroku.html";
-// 編集ボタンを押すと、入力したデータが取得される
-
-
-
-
-
-
-
-
 // 削除ボタンを押すと、レコードが削除されるファンクション(POST)
 var busyoSakuzyo = function(id) {
 	var inputBusyoId = id;
@@ -145,8 +135,8 @@ $(document).ready(function() {
 //			    $(this).addClass("delete");
 //			});
 //});
-	// 編集ボタンを押したときのイベント
-	$('#js-hensyu-button').click(busyoEdit);
+//	// 編集ボタンを押したときのイベント
+//	$('#js-hensyu-button').click(busyoEdit);
 
 	// 新規追加ボタンを押したときのイベント
 	$('#tuika_button').click(tuika);
