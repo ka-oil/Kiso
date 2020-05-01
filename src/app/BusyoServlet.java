@@ -59,7 +59,7 @@ public class BusyoServlet extends HttpServlet {
 		String pass = "webapp";
 
 		// 実行するSQL文
-		String sql = "select BUSYO_ID,BUSYO_NAME \n" + "from SK_BUSYO \n";
+		String sql = "select BUSYO_ID,BUSYO_NAME \n" + "from SK_BUSYO \n" + "where 1=1 \n" + "order by BUSYO_ID \n";
 
 		List<Busyo> list = new ArrayList<>();
 

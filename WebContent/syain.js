@@ -54,13 +54,13 @@ var syainSakuzyo = function(id) {
 	console.log(inputSyainId);
 
 	var requestQuery = {
-		busyoId : inputBusyoId,
+			syainId : inputSyainId,
 	}
 	console.log('入力値', requestQuery);
 
 	$.ajax({
 		type : 'POST',
-		url : '/syainDataApp/DeleteServlet',
+		url : '/syainDataApp/SyainDeleteServlet',
 		dataType : 'json',
 		data : requestQuery,
 		success : function(data) {
@@ -70,6 +70,7 @@ var syainSakuzyo = function(id) {
 			// アラートを出す
 			alert('削除しました');
 			doReload();
+			executeAjax();
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理

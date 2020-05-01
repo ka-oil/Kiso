@@ -64,7 +64,7 @@ public class SyainDeleteServlet extends HttpServlet {
 		String user = "webapp";
 		String pass = "webapp";
 		// 実行するSQL文
-		String sql ="delete from SK_SYAIN \n" +  "where SYAIN_ID = '"+syainId+"' \n";
+		String sql ="delete from SK_SYAIN \n" + "where SYAIN_ID = '"+syainId+"' \n";
 
 		System.out.println(sql);
 
