@@ -57,10 +57,12 @@ var kensaku = function(inputBusyoId, inputSyainId, inputSyainName) {
 			// サーバーとの通信に成功した時の処理
 			// 確認のために返却値を出力
 			console.log('返却値', json);
+			//以前の要素を削除
+			$("#kekka").empty();
 			var kekkaElemnt = '';
-//			if(){
-//				<h2>登録されている社員がいません</h2>
-//			}else{
+			if(json.length == 0){
+				kekkaElemnt = '<h2>登録されている社員がいません</h2>'
+			}else{
 			// 取得したデータを画面に表示する
 			kekkaElemnt = '<thead><tr><th>社員ID</th><th>名前</th></tr></thead>	';
 			for (var i = 0; i < json.length; i++) {
@@ -68,8 +70,8 @@ var kensaku = function(inputBusyoId, inputSyainId, inputSyainName) {
 				kekkaElemnt += '<tr> <td>' + syain.syainId + '</td><td>'
 						+ syain.syainName + '</td></tr>';
 			}
-//			kekkaElemnt += '<td><input type="button" value="新規登録" onclick="location.href=\'./SyainData.html\'"></td></tbody>';
-
+			kekkaElemnt += '<td><input type="button" value="新規登録" onclick="location.href=\'./SyainData.html\'"></td></tbody>';
+			}
 			// HTMLに挿入
 			$('#kekka').append(kekkaElemnt);
 		},
