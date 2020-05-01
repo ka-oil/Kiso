@@ -13,28 +13,33 @@
 	</div>
 <body>
 	<div class="syain-kensaku">
-
-		<form name="form1">
-			<select name="所属部署">
+		<p>
+			所属部署: <select id="js-input-busyoId">
+				<option id="q" value="D00">選択してください</option>
 				<!-- JavaScriptでプルダウンメニューのoption作成 -->
 			</select>
-		</form>
+		</p>
+		<p>
+			社員ID: <input type="text" value="" placeholder="社員ID "
+				id="js-input-syainId">
+		</p>
+		<p>
+			名前に含む文字:<input type="text" placeholder="名前" id="js-input-syainName">
+		</p>
+	</div>
+	<input type="button" value="検索" id="js-kensaku-button">
+
+	<div>
+	<h2>検索結果</h2>
 		<table>
-			<tr>
-				<th>所属部署:</th>
-			</tr>
-			<tr>
-				<th>社員ID:</th>
-				<td><input type="text" placeholder="社員ID "
-					id="js-input-syainId"></td>
-			</tr>
-			<tr>
-				<th>名前に含む文字:</th>
-				<td><input type="text" placeholder="名前" id="js-input-syainName"></td>
-			</tr>
+			<thead>
+				<tr>
+					<th>社員ID</th>
+					<th>名前</th>
+				</tr>
+			</thead>
 		</table>
 	</div>
-	<input type="button" value="検索" onclick="'">
 
 </body>
 </html>

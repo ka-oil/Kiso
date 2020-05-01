@@ -22,16 +22,6 @@ function executeAjax() {
 					// サーバーとの通信に成功した時の処理
 					// 確認のために返却値を出力
 					console.log('返却値', json);
-					// // 取得したデータを画面に表示する
-					// var tableElemnt = '';
-					// for (var i=0; i < json.length; i++) {
-					// var syain = json[i];
-					// tableElemnt += '<tr> <td>' + syain.syainId + '</td><td>'
-					// + syain.syainName + '</td><tr>';
-					// }
-					// // HTMLに挿入
-					// $('#syain').append(tableElemnt);
-					// },
 
 					// 取得したデータを画面に表示する
 					var tableElemnt = '';

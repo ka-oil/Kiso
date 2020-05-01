@@ -1,10 +1,4 @@
-insert into SK_SYAIN
-				+ "(SYAIN_ID,SYAIN_NAME,SYAIN_AGE,SYAIN_SEIBETU,SYAIN_ZYUSYO,BUSYO_ID) \n" + "values  \n" + "('" + syainId
-				+ "','" + syainName + "','" + syainAge + "','" + syainSeibetu + "','" + syainZyusyo + "','" + syainSyozoku
-				+ "')
-
 update SK_SYAIN
-set SYAIN_ID = 'busyoId', SYAIN_NAME = 'busyoName', SYAIN_AGE = 'syainAge',
-SYAIN_SEIBETU = 'syainSeibetu', SYAIN_ZYUSYO = 'syainZyusyo',
-BUSYO_ID = 'syainSyozoku'
-where SYAIN_ID = 'syainId'
+set SYAIN_ID = '0004', SYAIN_NAME = '風連のクマ', SYAIN_AGE = '24',
+SYAIN_SEIBETU = '男', SYAIN_ZYUSYO = '北極', BUSYO_ID = 'D04'
+where SYAIN_ID = '0004'

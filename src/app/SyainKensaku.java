@@ -24,23 +24,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class SyainKensaku extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SyainKensaku() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SyainKensaku() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-
-		// アクセス元のHTMLでitemCdに設定された値を取得して、String型の変数itemCdに代入
-		String syainId = request.getParameter("syainId");
-
+//
+//		// アクセス元のHTMLでitemCdに設定された値を取得して、String型の変数itemCdに代入
+//		String syainId = request.getParameter("syainId");
+//
 		// JDBCドライバの準備
 		try {
 			// JDBCドライバのロード
@@ -54,12 +56,9 @@ public class SyainKensaku extends HttpServlet {
 		String user = "webapp";
 		String pass = "webapp";
 		// 実行するSQL文
-		String sql ="select \n" +
-				"SYAIN_ID, SYAIN_NAME \n" +
-				"from SK_SYAIN \n";
+		String sql = "select BUSYO_ID,BUSYO_NAME \n" + "from SK_BUSYO \n" + "where 1=1 \n" + "order by BUSYO_ID \n";
 
-
-		List<Syain> list = new ArrayList<>();
+		List<Busyo> list = new ArrayList<>();
 
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
 		// この場合はDBサーバへの接続に失敗する可能性があります
@@ -75,13 +74,11 @@ public class SyainKensaku extends HttpServlet {
 			// rs.nextは取得した商品情報表に次の行があるとき(取得結果があるとき)、trueになり、if文の中が実行される
 			// 次の行がないときはfalseになり、実行されない
 
-			while(rs1.next()) {
-				Syain syain = new Syain();
-
-
-				syain.setSyainId(rs1.getString("SYAIN_ID")); // syain型の変数syainに商品コードをセット
-				syain.setSyainName(rs1.getString("SYAIN_NAME"));// syain型の変数syainに商品名をセット
-				list.add(syain);
+			while (rs1.next()) {
+				Busyo busyo = new Busyo();
+				busyo.setBusyoId(rs1.getString("BUSYO_ID")); // syain型の変数syainに商品コードをセット
+				busyo.setBusyoName(rs1.getString("BUSYO_NAME"));// syain型の変数syainに商品名をセット
+				list.add(busyo);
 			}
 
 		} catch (Exception e) {
@@ -95,9 +92,11 @@ public class SyainKensaku extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
