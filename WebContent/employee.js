@@ -5,7 +5,7 @@ function executeAjax () {
 	console.dir(requestQuery);
 	$.ajax({
 		type : 'GET',
-		url : '/wt2/api/employees',
+		url : '/syainDataApp/api/employees',
 		dataType : 'json',
 		data :requestQuery,
 		success : function (json) {

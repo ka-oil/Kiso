@@ -19,13 +19,15 @@ public class EmployeeServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+		// 文字化け処理
+		response.setContentType("text/html; charset=UTF-8");
 
 		// アクセス元のHTMLでｑに設定された値を取得して、String型の変数idに代入
 		String id = request.getParameter("q");
 
 		// データベースにアクセスするために、データベースのURLとユーザ名とパスワードを指定します
 		// ※SQLのログを出力するため変数urlの値は基本的な形式から少し変更を加えています。
-		// 　そのためシステム構築2で使い回すときは注意下さい！
+		// そのためシステム構築2で使い回すときは注意下さい！
 		String url = "jdbc:log4jdbc:oracle:thin:@localhost:1521:XE";
 		String user = "wt2";
 		String pass = "wt2";
@@ -40,18 +42,9 @@ public class EmployeeServlet extends HttpServlet {
 				Statement stmt = con.createStatement();
 
 				// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
-				ResultSet rs1 = stmt.executeQuery(
-						"SELECT syainname, " +
-								"	syusinttdfkn, " +
-								"	imagefilename, " +
-								"	tanjyoymd, "+
-								"	daigakuname, " +
-								"	senkokamoku, " +
-								"	syutokusikaku, " +
-								"	nyusyaymd, " +
-								"	freecomment " +
-								"FROM ms_syain " +
-								"WHERE syainid = '" + id + "'");) {
+				ResultSet rs1 = stmt.executeQuery("SELECT syainname, " + "	syusinttdfkn, " + "	imagefilename, "
+						+ "	tanjyoymd, " + "	daigakuname, " + "	senkokamoku, " + "	syutokusikaku, "
+						+ "	nyusyaymd, " + "	freecomment " + "FROM ms_syain " + "WHERE syainid = '" + id + "'");) {
 
 			// 社員情報を保持するため、Employee型の変数empを宣言
 			// 変数empはJSPに渡すための社員情報を保持させます
@@ -86,7 +79,7 @@ public class EmployeeServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		doGet(request ,response);
+		doGet(request, response);
 	}
 
 }

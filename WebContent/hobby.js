@@ -15,7 +15,7 @@ function executeAjax () {
 	$.ajax({
 		type : 'GET',
 		dataType:'json',
-		url : '/wt2/api/hobby',
+		url : '/syainDataApp/api/hobby',
 		data : requestQuery,
 		success : function(json) {
 			// サーバーとの通信に成功した時の処理
