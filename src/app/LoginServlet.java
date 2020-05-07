@@ -19,56 +19,61 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public LoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		//文字化け処理
 		response.setContentType("text/html;charset=UTF-8");
 
-		//ユーザー情報をセッションに保存
-		//セッションを取得
+		//セッションの取得
 		HttpSession session = request.getSession(true);
-		//status変数にlogin情報を渡す
+		//セッションキーからセッションバリューの取得、statusに代入
 		String status = (String) session.getAttribute("login");
-		//JSから値を取得
+		//loginRequestからパラメーターを取得→login/logout
 		String loginRequest = request.getParameter("loginRequest");
-		// アクセスした人に応答するためのJSONを用意
+		//出力のためのJSONを用意
 		PrintWriter pw = response.getWriter();
 
-		//ログインされているか判定
-		//(status == null)→ログインしていない状態
-		if(status == null) {
-			if(loginRequest != null &&  loginRequest.equals("login")) {
-				//セッションに値を保存する
+		//statusがnull→セッションバリューに何も入ってない→ログイン情報がない
+		if (status == null) {
+			if (loginRequest != null && loginRequest.equals("login")) {
+				//セッションの要素を保存
 				session.setAttribute("login", "ok");
-				// JSONで出力する
+				//結果を出力
 				pw.append(new ObjectMapper().writeValueAsString("ログイン完了。"));
-			}else {
+			} else {
 				pw.append(new ObjectMapper().writeValueAsString("ログインして下さい。"));
 			}
-		}else {
-			if (loginRequest != null && loginRequest.equals("logout")){
+		} else {
+			if (loginRequest != null && loginRequest.equals("logout")) {
+				//"login"キーを削除→ログアウト状態へ
 				session.removeAttribute("login");
+				//結果を出力
 				pw.append(new ObjectMapper().writeValueAsString("ログアウト完了。"));
-			}else {
+			} else {
 				pw.append(new ObjectMapper().writeValueAsString("ログイン済み"));
 			}
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
