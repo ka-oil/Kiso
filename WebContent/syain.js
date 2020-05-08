@@ -118,6 +118,7 @@ var tuika = function() {
 	});
 }
 
+
 // 画面リロードするメソッド
 function doReload() {
 	// reloadメソッドによりページをリロード

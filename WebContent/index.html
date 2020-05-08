@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>myShoppingSite</title>
+<title>社員情報管理ツール</title>
 <link rel="stylesheet" href="./index.css" type="text/css">
 <!-- JavaScriptの読み込み -->
 <script type="text/javascript" src="jquery-1.10.2.js"></script>
@@ -11,13 +11,18 @@
 <body>
 	<!--  header -->
 	<div class="header">
-		<h1>myCart</h1>
+		<h1>ログイン画面</h1>
 	</div>
 	<!--  メインコンテンツ -->
 	<div class="content">
 			<input type="text"  placeholder="ユーザーID" id="js-login-id" class="login-id"></input>
 			<input type="text"  placeholder="パスワード" id="js-login-pass" class="login-pass"></input>
-		<button id="js-login-button" class="login-button">ログイン</button>
-	</div>
+			<input type="button" id="login" value="ログイン" onclick="login(id)">
+			<input type="button" id="logout" value="ログアウト" onclick="login(id)">
+
+<!-- 		<button id="js-login-button" class="login-button">ログイン</button>
+		<button id="js-logout-button">ログアウト</button>
+ -->
+ </div>
 </body>
 </html>
