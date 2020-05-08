@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -39,10 +40,10 @@ public class SyainKensaku extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-//
-//		// アクセス元のHTMLでitemCdに設定された値を取得して、String型の変数itemCdに代入
-//		String syainId = request.getParameter("syainId");
-//
+		//
+		// // アクセス元のHTMLでitemCdに設定された値を取得して、String型の変数itemCdに代入
+		// String syainId = request.getParameter("syainId");
+		//
 		// JDBCドライバの準備
 		try {
 			// JDBCドライバのロード
@@ -70,17 +71,25 @@ public class SyainKensaku extends HttpServlet {
 				// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
 				ResultSet rs1 = stmt.executeQuery(sql);) {
 			// SQL実行後の処理内容
-			// SQL実行結果を保持している変数rsから商品情報を取得
-			// rs.nextは取得した商品情報表に次の行があるとき(取得結果があるとき)、trueになり、if文の中が実行される
-			// 次の行がないときはfalseになり、実行されない
 
-			while (rs1.next()) {
-				Busyo busyo = new Busyo();
-				busyo.setBusyoId(rs1.getString("BUSYO_ID")); // syain型の変数syainに商品コードをセット
-				busyo.setBusyoName(rs1.getString("BUSYO_NAME"));// syain型の変数syainに商品名をセット
-				list.add(busyo);
+			HttpSession session = request.getSession();
+			// セッションからユーザーコードを取得
+			String status = (String) session.getAttribute("login");
+			// セッションにユーザーが保存されてない(ログインしてない)、もしく䛿画面から送られてくるユーザー
+			// コードと違う場合䛿エラー
+
+			if (status == null) { // ログインしていない場合䛾処理
+				// 処理終了
+				return;
+			} else {
+
+				while (rs1.next()) {
+					Busyo busyo = new Busyo();
+					busyo.setBusyoId(rs1.getString("BUSYO_ID")); // syain型の変数syainに商品コードをセット
+					busyo.setBusyoName(rs1.getString("BUSYO_NAME"));// syain型の変数syainに商品名をセット
+					list.add(busyo);
+				}
 			}
-
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細:[%s]", e.getMessage()), e);
 		}

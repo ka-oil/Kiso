@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -45,33 +46,39 @@ public class EmployeeServlet extends HttpServlet {
 				ResultSet rs1 = stmt.executeQuery("SELECT syainname, " + "	syusinttdfkn, " + "	imagefilename, "
 						+ "	tanjyoymd, " + "	daigakuname, " + "	senkokamoku, " + "	syutokusikaku, "
 						+ "	nyusyaymd, " + "	freecomment " + "FROM ms_syain " + "WHERE syainid = '" + id + "'");) {
+			HttpSession session = request.getSession();
+			// セッションからユーザーコードを取得
+			String status = (String) session.getAttribute("login");
+			// セッションにユーザーが保存されてない(ログインしてない)、もしく䛿画面から送られてくるユーザー
+			// コードと違う場合䛿エラー
 
-			// 社員情報を保持するため、Employee型の変数empを宣言
-			// 変数empはJSPに渡すための社員情報を保持させます
-			Employee emp = new Employee();
+			if (status == null) { // ログインしていない場合䛾処理
+				// 処理終了
+				return;
+			} else {
+				// 社員情報を保持するため、Employee型の変数empを宣言
+				// 変数empはJSPに渡すための社員情報を保持させます
+				Employee emp = new Employee();
 
-			// SQL実行結果を保持している変数rsから社員情報を取得
-			// rs.nextは取得した社員情報表に次の行があるとき、trueになります
-			// 次の行がないときはfalseになります
-			if (rs1.next()) {
-				emp.setId(id); // 社員IDを変数empに代入
-				emp.setName(rs1.getString("syainname"));// SQL実行結果のsyainname列の値を取得し変数empに代入します
-				emp.setAddress(rs1.getString("syusinttdfkn")); // SQL実行結果の「syusinttdfkn」列の値を取得し変数empに代入します
-				emp.setImage(rs1.getString("imagefilename")); // SQL実行結果の「imagefilename」列の値を取得し変数empに代入します
-				emp.setBirthYmd(rs1.getString("tanjyoymd")); // 以下、同様なので以下省略します
-				emp.setCollege(rs1.getString("daigakuname"));
-				emp.setMajor(rs1.getString("senkokamoku"));
-				emp.setLicense(rs1.getString("syutokusikaku"));
-				emp.setEnterYmd(rs1.getString("nyusyaymd"));
-				emp.setComment(rs1.getString("freecomment"));
+				if (rs1.next()) {
+					emp.setId(id); // 社員IDを変数empに代入
+					emp.setName(rs1.getString("syainname"));// SQL実行結果のsyainname列の値を取得し変数empに代入します
+					emp.setAddress(rs1.getString("syusinttdfkn")); // SQL実行結果の「syusinttdfkn」列の値を取得し変数empに代入します
+					emp.setImage(rs1.getString("imagefilename")); // SQL実行結果の「imagefilename」列の値を取得し変数empに代入します
+					emp.setBirthYmd(rs1.getString("tanjyoymd")); // 以下、同様なので以下省略します
+					emp.setCollege(rs1.getString("daigakuname"));
+					emp.setMajor(rs1.getString("senkokamoku"));
+					emp.setLicense(rs1.getString("syutokusikaku"));
+					emp.setEnterYmd(rs1.getString("nyusyaymd"));
+					emp.setComment(rs1.getString("freecomment"));
+				}
+
+				// アクセスした人に応答するためのJSONを用意する
+				PrintWriter pw = response.getWriter();
+
+				// JSONで出力する
+				pw.append(new ObjectMapper().writeValueAsString(emp));
 			}
-
-			// アクセスした人に応答するためのJSONを用意する
-			PrintWriter pw = response.getWriter();
-
-			// JSONで出力する
-			pw.append(new ObjectMapper().writeValueAsString(emp));
-
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細：[%s]", e.getMessage()), e);
 		}

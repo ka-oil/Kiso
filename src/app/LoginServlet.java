@@ -63,11 +63,11 @@ public class LoginServlet extends HttpServlet {
 		String user = "webapp";
 		String pass = "webapp";
 		// 実行するSQL文
-		String sql ="select SYAIN_ID, LOGIN_PASS, SYAIN_ROLL \n" +
-				"from SK_LOGIN \n" +
+		String sql ="select ss.SYAIN_ID, ss.SYAIN_NAME, sl.SYAIN_ROLL \n" +
+				"from SK_LOGIN sl, SK_SYAIN ss \n" +
 				"where 1=1 \n" +
-				"and SYAIN_ID = '"+userId+"' \n" +
-				"and LOGIN_PASS = '"+password+"' \n";
+				"and ss.SYAIN_ID = '"+userId+"' \n" +
+				"and sl.LOGIN_PASS = '"+password+"' \n";
 
 		System.out.println(sql);
 
@@ -87,7 +87,8 @@ public class LoginServlet extends HttpServlet {
 			//マップを用意
 			Map<String, String> userDeta = new HashMap<>();
 
-			if (rs1.next()) {
+//			if (rs1.next()) {
+
 				// セッションの取得
 				HttpSession session = request.getSession(true);
 				// セッションキーからセッションバリューの取得、statusに代入
@@ -97,7 +98,7 @@ public class LoginServlet extends HttpServlet {
 				{
 					// statusがnull→セッションバリューに何も入ってない→ログイン情報がない
 					if (status == null) {
-						if (loginRequest != null && loginRequest.equals("login")) {
+						if (rs1.next() && loginRequest != null && loginRequest.equals("login")) {
 							// セッションに要素を保存
 							session.setAttribute("login", "ok");
 							// 結果を出力
@@ -110,7 +111,7 @@ public class LoginServlet extends HttpServlet {
 							// pw.append(new
 							// ObjectMapper().writeValueAsString("ログイン完了。"));
 						} else {
-							pw.append(new ObjectMapper().writeValueAsString("ログインして下さい。"));
+							pw.append(new ObjectMapper().writeValueAsString("ログインしてください"));
 						}
 					} else {
 						if (loginRequest != null && loginRequest.equals("logout")) {
@@ -123,9 +124,9 @@ public class LoginServlet extends HttpServlet {
 						}
 					}
 				}
-			} else {
-				pw.append(new ObjectMapper().writeValueAsString("ログインIDとパスワードが間違っています"));
-			}
+//			} else {
+//				pw.append(new ObjectMapper().writeValueAsString("ログインIDとパスワードが間違っています"));
+//			}
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細：[%s]", e.getMessage()), e);
 		}

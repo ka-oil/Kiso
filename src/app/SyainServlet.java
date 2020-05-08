@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -56,11 +57,7 @@ public class SyainServlet extends HttpServlet {
 		String user = "webapp";
 		String pass = "webapp";
 		// 実行するSQL文
-		String sql ="select \n" +
-				"SYAIN_ID, SYAIN_NAME \n" +
-				"from SK_SYAIN \n" +
-				"where 1=1 order by SYAIN_ID";
-
+		String sql = "select \n" + "SYAIN_ID, SYAIN_NAME \n" + "from SK_SYAIN \n" + "where 1=1 order by SYAIN_ID";
 
 		List<Syain> list = new ArrayList<>();
 
@@ -74,19 +71,26 @@ public class SyainServlet extends HttpServlet {
 				// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
 				ResultSet rs1 = stmt.executeQuery(sql);) {
 			// SQL実行後の処理内容
-			// SQL実行結果を保持している変数rsから商品情報を取得
-			// rs.nextは取得した商品情報表に次の行があるとき(取得結果があるとき)、trueになり、if文の中が実行される
-			// 次の行がないときはfalseになり、実行されない
 
-			while(rs1.next()) {
-				Syain syain = new Syain();
+			HttpSession session = request.getSession();
+			// セッションからユーザーコードを取得
+			String status = (String) session.getAttribute("login");
+			// セッションにユーザーが保存されてない(ログインしてない)、もしく䛿画面から送られてくるユーザー
+			// コードと違う場合䛿エラー
 
+			if (status == null) { // ログインしていない場合䛾処理
+				// 処理終了
+				return;
+			} else {
 
-				syain.setSyainId(rs1.getString("SYAIN_ID")); // syain型の変数syainに商品コードをセット
-				syain.setSyainName(rs1.getString("SYAIN_NAME"));// syain型の変数syainに商品名をセット
-				list.add(syain);
+				while (rs1.next()) {
+					Syain syain = new Syain();
+
+					syain.setSyainId(rs1.getString("SYAIN_ID")); // syain型の変数syainに商品コードをセット
+					syain.setSyainName(rs1.getString("SYAIN_NAME"));// syain型の変数syainに商品名をセット
+					list.add(syain);
+				}
 			}
-
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細:[%s]", e.getMessage()), e);
 		}

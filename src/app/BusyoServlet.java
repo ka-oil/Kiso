@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -73,21 +74,30 @@ public class BusyoServlet extends HttpServlet {
 				// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
 				ResultSet rs1 = stmt.executeQuery(sql);) {
 			// SQL実行後の処理内容
-			// rs.nextは取得した社員情報表に次の行があるとき、trueになります
-			// 次の行がないときはfalseになります
-			while (rs1.next()) {
-				Busyo busyo = new Busyo();
-				busyo.setBusyoId(rs1.getString("BUSYO_ID")); // 社員IDを変数empに代入
-				busyo.setBusyoName(rs1.getString("BUSYO_NAME"));// SQL実行結果のsyainname列の値を取得し変数empに代入します
-				list.add(busyo);
+
+			HttpSession session = request.getSession();
+			// セッションからユーザーコードを取得
+			String status = (String) session.getAttribute("login");
+			// セッションにユーザーが保存されてない(ログインしてない)、もしく䛿画面から送られてくるユーザー
+			// コードと違う場合䛿エラー
+
+			if (status == null) { // ログインしていない場合䛾処理
+				// 処理終了
+				return;
+			} else {
+				while (rs1.next()) {
+					Busyo busyo = new Busyo();
+					busyo.setBusyoId(rs1.getString("BUSYO_ID")); // 社員IDを変数empに代入
+					busyo.setBusyoName(rs1.getString("BUSYO_NAME"));// SQL実行結果のsyainname列の値を取得し変数empに代入します
+					list.add(busyo);
+				}
+
+				// アクセスした人に応答するためのJSONを用意する
+				PrintWriter pw = response.getWriter();
+
+				// JSONで出力する
+				pw.append(new ObjectMapper().writeValueAsString(list));
 			}
-
-			// アクセスした人に応答するためのJSONを用意する
-			PrintWriter pw = response.getWriter();
-
-			// JSONで出力する
-			pw.append(new ObjectMapper().writeValueAsString(list));
-
 		} catch (
 
 		Exception e) {

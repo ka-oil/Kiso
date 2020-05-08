@@ -5,12 +5,16 @@ function login(id) {
 	var imputUserId = $('#js-login-id').val();
 	var imputPassWord = $('#js-login-pass').val();
 	var imputLoginRequest = id;
+	console.log(imputUserId);
+	console.log(imputPassWord);
+	console.log(imputLoginRequest);
 
 	var requestQuery = {
 		userId : imputUserId,
 		password : imputPassWord,
 		loginRequest : imputLoginRequest
 	};
+	console.log(requestQuery);
 
 	// サーバーからデータを取得する
 	$.ajax({
@@ -26,6 +30,8 @@ function login(id) {
 			sessionStorage.setItem('userId',json.userId);
 			sessionStorage.setItem('userName',json.userName);
 			sessionStorage.setItem('roll',json.roll);
+			sessionStorage.getItem('userId');
+			pageRemove('./Syain_Home.html');
 			}else{
 				alert(json);
 			}
@@ -39,8 +45,8 @@ function login(id) {
 }
 
 //ログイン画面へ画面遷移させるメソッド
-function loginPage(){
-	window.location.href = './index.html';
+function pageRemove(url){
+	window.location.href = url;
 }
 /**
  * 読み込み時の動作

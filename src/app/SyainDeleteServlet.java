@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -64,7 +65,7 @@ public class SyainDeleteServlet extends HttpServlet {
 		String user = "webapp";
 		String pass = "webapp";
 		// 実行するSQL文
-		String sql ="delete from SK_SYAIN \n" + "where SYAIN_ID = '"+syainId+"' \n";
+		String sql = "delete from SK_SYAIN \n" + "where SYAIN_ID = '" + syainId + "' \n";
 
 		System.out.println(sql);
 
@@ -79,11 +80,21 @@ public class SyainDeleteServlet extends HttpServlet {
 			int resultCount = stmt.executeUpdate(sql);
 			// SQL実行後の処理内容
 
-			// アクセスした人に応答するためのJSONを用意する
-			PrintWriter pw = response.getWriter();
-			// JSONで出力する
-			pw.append(new ObjectMapper().writeValueAsString("ok"));
+			HttpSession session = request.getSession();
+			// セッションからユーザーコードを取得
+			String status = (String) session.getAttribute("login");
+			// セッションにユーザーが保存されてない(ログインしてない)、もしく䛿画面から送られてくるユーザー
+			// コードと違う場合䛿エラー
 
+			if (status == null) { // ログインしていない場合䛾処理
+				// 処理終了
+				return;
+			} else {
+				// アクセスした人に応答するためのJSONを用意する
+				PrintWriter pw = response.getWriter();
+				// JSONで出力する
+				pw.append(new ObjectMapper().writeValueAsString("ok"));
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細:[%s]", e.getMessage()), e);
 		}
